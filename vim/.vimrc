@@ -147,6 +147,7 @@ set foldlevel=100
 "let g:explDetailedList=1
 """up arrow brigns up file list
 "map <F7> <ESC>:Sexplore!<RETURN><ESC><C-W><C-W>
+map <F7> <ESC>:NERDTree<RETURN><ESC><C-W><C-W>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags/cscope db setting
