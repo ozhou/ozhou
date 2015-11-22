@@ -2,7 +2,7 @@
 " When started as "evim", evim.vim will already have done these settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if v:progname =~? "evim"
-  finish
+    finish
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -21,9 +21,9 @@ set history=50  	" keep 50 lines of command line history
 " Files/Dirs/Backups
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if has("vms")
-  set nobackup  	" do not keep a backup file, use versions instead
+    set nobackup  	" do not keep a backup file, use versions instead
 else
-  set backup    	" keep a backup file
+    set backup    	" keep a backup file
 endif
 set backupdir=~/backup
 set browsedir=current
@@ -68,7 +68,7 @@ set hlsearch            " enable highlight search result
 colorscheme	koehler     "initial colorscheme
 
 if has("gui_running")
-  set t_Co=256
+    set t_Co=256
 endif
 
 " functions for color schemes switch and hotkey <F5> for switching
@@ -76,12 +76,12 @@ let SwitchSchemesFiles = globpath("$VIMRUNTIME,$HOME/.vim","colors/*.vim")
 let SwitchSchemeslist  = split(g:SwitchSchemesFiles, '\n')
 let SwitchSchemesIndex = 0
 function! SwitchSchemes()
-  let themestring = g:SwitchSchemeslist[g:SwitchSchemesIndex]
-  let g:SwitchSchemesIndex = g:SwitchSchemesIndex + 1
-  if g:SwitchSchemesIndex >= len(g:SwitchSchemeslist)
-    let g:SwitchSchemesIndex = 0
-  endif
-  exe ":so ".themestring
+    let themestring = g:SwitchSchemeslist[g:SwitchSchemesIndex]
+    let g:SwitchSchemesIndex = g:SwitchSchemesIndex + 1
+    if g:SwitchSchemesIndex >= len(g:SwitchSchemeslist)
+        let g:SwitchSchemesIndex = 0
+    endif
+    exe ":so ".themestring
 endfunction
 map <silent> <F5> :call SwitchSchemes()<CR>:echo g:colors_name <CR>
 
@@ -103,7 +103,7 @@ if has("autocmd")
   au!
 
   " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+  autocmd FileType text setlocal textwidth=80
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -116,7 +116,9 @@ if has("autocmd")
   augroup END
 
   " auto format xml file
-  au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+  if exists(":xmllint") == 2
+    au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+  endif
 
 else
 
@@ -137,6 +139,31 @@ set foldmethod=indent	" Make folding indent sensitive
 set foldlevel=100
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERD Tree Shortcut
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"if exists('g:loaded_nerdtree_autoload')
+    map <F7> <ESC>:NERDTreeToggle<RETURN><ESC><C-W><C-W>
+"endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Window Manager Setting
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map <F8> <C-W>w         " use F8 for windows switching
+map <F9> <C-W>+         " horizontal window resize
+map <F10> <C-W>-
+map <F11> <C-W><        " vertical window resize
+map <F12> <C-W>>
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+
+if exists('loaded_winmanager')
+    let g:winManagerWindowLayout='TagList'
+    map <C-W><C-W> :WMToggle <CR>
+endif
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Explorer setting (use NERD Tree)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:explVertical=1
@@ -147,12 +174,13 @@ set foldlevel=100
 "let g:explDetailedList=1
 """up arrow brigns up file list
 "map <F7> <ESC>:Sexplore!<RETURN><ESC><C-W><C-W>
-map <F7> <ESC>:NERDTree<RETURN><ESC><C-W><C-W>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ctags/cscope db setting
+" ctags/cscope setting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set tags=/nfs/users/ozhou/RP81/tags
+if exists('loaded_taglist') && loaded_taglist != 'no'
+    let Tlist_Show_One_File=1
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Man setting
@@ -162,34 +190,26 @@ map <F7> <ESC>:NERDTree<RETURN><ESC><C-W><C-W>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Other General Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""use F8 for windows switching
-map <F8> <C-W>w
-"""user F9/F10 for horizontal window resize
-map <F9> <C-W>+
-map <F10> <C-W>-
-"""user F11/F12 for vertical window resize
-map <F11> <C-W><
-map <F12> <C-W>>
-
-"""
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-
 """use F12 to insert system time with specific format
 "map <F12> i<C-R>=strftime("%H:%M %Y-%m-%d")<ESC><ESC>
 "map! <F12> <C-R>=strftime("%H:%M %Y-%m-%d")<RETURN>
 
 """Easier to modify and enable .vimrc
-nmap ,s :source ~/.vimrc
-nmap ,v :e ~/.vimrc
+nmap <Leader>s :source ~/.vimrc
+nmap <Leader>v :e ~/.vimrc
+if has("autocmd")
+    autocmd! bufwritepost .vimrc source ~/.vimrc
+endif
+
 """Easier edit/save of files in the same directory
 if has("unix")
-	map ,e :e <C-R>=expand("%:p:h") . "/" <CR>
-	map ,w :w <C-R>=expand("%:p:h") . "/" <CR>
+	map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+	map <Leader>w :w <C-R>=expand("%:p:h") . "/" <CR>
 else
-	map ,e :e <C-R>=expand("%:p:h") . "\" <CR>
-	map ,w :w <C-R>=expand("%:p:h") . "\" <CR>
+	map <Leader>e :e <C-R>=expand("%:p:h") . "\" <CR>
+	map <Leader>w :w <C-R>=expand("%:p:h") . "\" <CR>
 endif
+
 """Don't use Ex mode, use Q for formatting
 map Q gq
 
