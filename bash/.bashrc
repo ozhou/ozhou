@@ -115,13 +115,19 @@ fi
 
 # check and start ssh-agent, then export SSH_AUTH_SOCK
 # this environment is needed by ssh-add in the shell env
-SSH_DIR=`ls /tmp | grep "^ssh-*"`
+if [ -z $TMPDIR ]
+then
+    tmpdir="/tmp"
+else
+    tmpdir=$TMPDIR
+fi
+SSH_DIR=`ls $tmpdir | grep "^ssh-*"`
 if [ -z $SSH_DIR ]
 then
     eval $(ssh-agent)
 else
-    SSH_PID_FILE=`ls /tmp/$SSH_DIR`
-    SSH_AUTH_SOCK=/tmp/$SSH_DIR/$SSH_PID_FILE
+    SSH_PID_FILE=`ls $tmpdir/$SSH_DIR`
+    SSH_AUTH_SOCK=$tmpdir/$SSH_DIR/$SSH_PID_FILE
     export SSH_AUTH_SOCK
 fi
 
