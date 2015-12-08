@@ -11,7 +11,9 @@ fi
 cd ~/.vim/bundle
 
 PLUGINS='
+https://github.com/vim-scripts/winmanager.git
 https://github.com/vim-scripts/taglist.vim.git
+https://github.com/vim-scripts/vim-json-line-format.git
 https://github.com/scrooloose/nerdtree.git
 https://github.com/toyamarinyon/vim-swift.git
 '
