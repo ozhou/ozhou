@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " When started as "evim", evim.vim will already have done these settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if v:progname =~? "evim"
@@ -141,13 +141,13 @@ set foldlevel=100
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NERD Tree Shortcut
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"if exists('g:loaded_nerdtree_autoload')
-    map <F7> <ESC>:NERDTreeToggle<RETURN><ESC><C-W><C-W>
-"endif
+map <F7> <ESC>:NERDTreeToggle<RETURN><ESC><C-W><C-W>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Window Manager Setting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:winManagerWindowLayout='FileExplorer|TagList'
+map <C-W><C-M> :WMToggle <CR>
 
 map <F8> <C-W>w         " use F8 for windows switching
 map <F9> <C-W>+         " horizontal window resize
@@ -157,30 +157,24 @@ map <F12> <C-W>>
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
 
-if exists('loaded_winmanager')
-    let g:winManagerWindowLayout='TagList'
-    map <C-W><C-W> :WMToggle <CR>
-endif
-
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Explorer setting (use NERD Tree)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:explVertical=1
-"let g:explSplitRight=1
-"let g:explStartRight=0
-"let g:explWinSize=20
-"let g:explUseSeparators=1
-"let g:explDetailedList=1
-"""up arrow brigns up file list
+let g:explVertical=1
+let g:explSplitRight=1
+let g:explStartRight=0
+let g:explWinSize=20
+let g:explUseSeparators=1
+let g:explDetailedList=1
+""up arrow brigns up file list
 "map <F7> <ESC>:Sexplore!<RETURN><ESC><C-W><C-W>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ctags/cscope setting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if exists('loaded_taglist') && loaded_taglist != 'no'
-    let Tlist_Show_One_File=1
-endif
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+map <C-T><C-T> :TlistToggle <CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Man setting
