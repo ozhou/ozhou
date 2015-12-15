@@ -242,7 +242,7 @@ function! Percent()
     return (byte * 100) / size
 endfunction
 
-"set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P%{Percent()}%%
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P%{Percent()}%%
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use Vim Commander
