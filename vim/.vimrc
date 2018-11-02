@@ -146,16 +146,18 @@ map <F7> <ESC>:NERDTreeToggle<RETURN><ESC><C-W><C-W>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Window Manager Setting
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:winManagerWindowLayout='FileExplorer|TagList'
-map <C-W><C-M> :WMToggle <CR>
+if exists('loaded_winmanager')
+    let g:winManagerWindowLayout='FileExplorer|TagList'
+    map <C-W><C-M> :WMToggle <CR>
 
-map <F8> <C-W>w         " use F8 for windows switching
-map <F9> <C-W>+         " horizontal window resize
-map <F10> <C-W>-
-map <F11> <C-W><        " vertical window resize
-map <F12> <C-W>>
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
+    map <F8> <C-W>w         " use F8 for windows switching
+    map <F9> <C-W>+         " horizontal window resize
+    map <F10> <C-W>-
+    map <F11> <C-W><        " vertical window resize
+    map <F12> <C-W>>
+    map <C-J> <C-W>j<C-W>_
+    map <C-K> <C-W>k<C-W>_
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " File Explorer setting (use NERD Tree)

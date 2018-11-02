@@ -19,6 +19,7 @@ https://github.com/scrooloose/nerdtree.git
 https://github.com/fholgado/minibufexpl.vim.git
 https://github.com/toyamarinyon/vim-swift.git
 https://github.com/vim-scripts/Pydiction.git
+https://github.com/Lokaltog/vim-powerline.git
 '
 
 for p in $PLUGINS; do
